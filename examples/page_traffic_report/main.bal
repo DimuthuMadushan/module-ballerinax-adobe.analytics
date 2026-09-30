@@ -32,8 +32,17 @@ public function main() returns error? {
     }
 
     // Step 2: Confirm the visits metric is available
-    analytics:AnalyticsMetric metrics = check analyticsClient->getMetricsForReportSuite(companyId, rsid = reportSuiteId);
-    io:println("Metric catalog entry: ", metrics?.id ?: "unknown");
+    analytics:AnalyticsMetric[] metrics = check analyticsClient->getMetricsForReportSuite(companyId, rsid = reportSuiteId);
+    boolean metricFound = false;
+    foreach analytics:AnalyticsMetric metric in metrics {
+        if metric?.id == VISITS_METRIC {
+            metricFound = true;
+            break;
+        }
+    }
+    if !metricFound {
+        return error("Metric " + VISITS_METRIC + " is not available for report suite " + reportSuiteId);
+    }
 
     // Step 3: Run a ranked report of visits by page
     analytics:RankedReportData report = check analyticsClient->runReport(companyId, {

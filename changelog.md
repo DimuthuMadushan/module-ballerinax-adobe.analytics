@@ -23,6 +23,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Operation names from 1.x are kept where the same endpoint exists. Response and payload record types follow the 2.0
   specification.
 
+- `validateSegment` takes an `AnalyticsSegmentDefinition` payload instead of a `string`, so the body is sent as a JSON
+  object.
+- `listAnnotations` and `getDateRangesForUser` return page records (`ResponsePageAnalyticsAnnotation`,
+  `ResponsePageExpandedDateRange`) with `content` and pagination fields, and `getMetricsForReportSuite` returns
+  `AnalyticsMetric[]`.
+
 ### Removed
 
 - `listReportSuites` and `getReportSuite`, which are not part of the current API specification.

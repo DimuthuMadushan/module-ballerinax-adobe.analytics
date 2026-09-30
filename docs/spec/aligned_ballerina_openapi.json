@@ -224,7 +224,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AnalyticsAnnotation"
+                                    "$ref": "#/components/schemas/ResponsePageAnalyticsAnnotation"
                                 }
                             }
                         }
@@ -3068,7 +3068,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ExpandedDateRange"
+                                    "$ref": "#/components/schemas/ResponsePageExpandedDateRange"
                                 }
                             }
                         }
@@ -3519,7 +3519,10 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/AnalyticsMetric"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AnalyticsMetric"
+                                    }
                                 }
                             }
                         }
@@ -4891,7 +4894,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "string"
+                                "$ref": "#/components/schemas/AnalyticsSegmentDefinition"
                             }
                         }
                     },
@@ -6992,6 +6995,47 @@
                     }
                 }
             },
+            "ResponsePageExpandedDateRange": {
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "lastPage": {
+                        "type": "boolean"
+                    },
+                    "numberOfElements": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "firstPage": {
+                        "type": "boolean"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "sort": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExpandedDateRange"
+                        }
+                    },
+                    "totalElements": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "description": "A page of date ranges"
+            },
             "CalculatedMetricDef": {
                 "type": "object"
             },
@@ -7272,6 +7316,47 @@
                         "type": "boolean"
                     }
                 }
+            },
+            "ResponsePageAnalyticsAnnotation": {
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "lastPage": {
+                        "type": "boolean"
+                    },
+                    "numberOfElements": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "firstPage": {
+                        "type": "boolean"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "sort": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AnalyticsAnnotation"
+                        }
+                    },
+                    "totalElements": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                },
+                "description": "A page of annotations"
             },
             "AnalyticsCalculatedMetric": {
                 "required": [

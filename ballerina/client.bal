@@ -46,7 +46,7 @@ public isolated client class Client {
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
-    remote isolated function listAnnotations(string globalCompanyId, map<string|string[]> headers = {}, *ListAnnotationsQueries queries) returns AnalyticsAnnotation|error {
+    remote isolated function listAnnotations(string globalCompanyId, map<string|string[]> headers = {}, *ListAnnotationsQueries queries) returns ResponsePageAnalyticsAnnotation|error {
         string resourcePath = string `/${getEncodedUri(globalCompanyId)}/annotations`;
         map<Encoding> queryParamEncoding = {"expansion": {style: FORM, explode: false}, "includeType": {style: FORM, explode: false}};
         resourcePath = resourcePath + check getPathForQueryParam(queries, queryParamEncoding);
@@ -616,7 +616,7 @@ public isolated client class Client {
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
-    remote isolated function getDateRangesForUser(string globalCompanyId, map<string|string[]> headers = {}, *GetDateRangesForUserQueries queries) returns ExpandedDateRange|error {
+    remote isolated function getDateRangesForUser(string globalCompanyId, map<string|string[]> headers = {}, *GetDateRangesForUserQueries queries) returns ResponsePageExpandedDateRange|error {
         string resourcePath = string `/${getEncodedUri(globalCompanyId)}/dateranges`;
         map<Encoding> queryParamEncoding = {"includeType": {style: FORM, explode: false}, "expansion": {style: FORM, explode: false}};
         resourcePath = resourcePath + check getPathForQueryParam(queries, queryParamEncoding);
@@ -687,7 +687,7 @@ public isolated client class Client {
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
-    remote isolated function getMetricsForReportSuite(string globalCompanyId, map<string|string[]> headers = {}, *GetMetricsForReportSuiteQueries queries) returns AnalyticsMetric|error {
+    remote isolated function getMetricsForReportSuite(string globalCompanyId, map<string|string[]> headers = {}, *GetMetricsForReportSuiteQueries queries) returns AnalyticsMetric[]|error {
         string resourcePath = string `/${getEncodedUri(globalCompanyId)}/metrics`;
         map<Encoding> queryParamEncoding = {"expansion": {style: FORM, explode: false}};
         resourcePath = resourcePath + check getPathForQueryParam(queries, queryParamEncoding);
@@ -924,7 +924,7 @@ public isolated client class Client {
     # + queries - Queries to be sent with the request 
     # + payload - Segment definition 
     # + return - successful operation 
-    remote isolated function validateSegment(string globalCompanyId, string payload, map<string|string[]> headers = {}, *ValidateSegmentQueries queries) returns SegmentCompatibility|error {
+    remote isolated function validateSegment(string globalCompanyId, AnalyticsSegmentDefinition payload, map<string|string[]> headers = {}, *ValidateSegmentQueries queries) returns SegmentCompatibility|error {
         string resourcePath = string `/${getEncodedUri(globalCompanyId)}/segments/validate`;
         resourcePath = resourcePath + check getPathForQueryParam(queries);
         map<anydata> headerValues = {...headers};

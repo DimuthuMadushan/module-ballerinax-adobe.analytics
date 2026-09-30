@@ -185,6 +185,8 @@
     "Tag": "Tag",
     "AlternateVariableNames": "AlternateVariableNames",
     "Share": "Share",
-    "ExpandedDateRange": "ExpandedDateRange"
+    "ExpandedDateRange": "ExpandedDateRange",
+    "ResponsePageAnalyticsAnnotation": "ResponsePageAnalyticsAnnotation",
+    "ResponsePageExpandedDateRange": "ResponsePageExpandedDateRange"
   }
 }

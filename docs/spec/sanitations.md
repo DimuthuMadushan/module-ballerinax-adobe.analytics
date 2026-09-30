@@ -41,9 +41,14 @@ These changes are done in order to improve the overall usability, and as workaro
    - **Updated**: Where the 1.x connector exposed the same method and path, its method name is reused (for example `findCalculatedMetrics`, `getDimensionsForReportSuite`); the remaining six operations use `list*/get*/create*/update*/delete*` names. The decisions are stored in `ai-mappings.json`.
    - **Reason**: Keeps existing call sites working where the endpoint is unchanged.
 
-7. **Known limitation: list operations that return one object**
-   - **Original**: `GET` annotations, date ranges, metrics and segments are declared to return a single object, not a collection.
-   - **Updated**: Left as declared; the generated methods return the declared record.
+7. **Response and body shapes corrected**
+   - **Original**: `POST /{globalCompanyId}/segments/validate` takes a body typed `string`, `GET /{globalCompanyId}/annotations` and `GET /{globalCompanyId}/dateranges` return a single object, and `GET /{globalCompanyId}/metrics` returns a single `AnalyticsMetric`.
+   - **Updated**: The `validateSegment` body is `AnalyticsSegmentDefinition` (sent as a JSON object, not a JSON-encoded string). `listAnnotations` returns the new page schema `ResponsePageAnalyticsAnnotation` and `getDateRangesForUser` returns `ResponsePageExpandedDateRange`, both with `content` and the same pagination fields as `ResponsePageUsageLogDto`. `getMetricsForReportSuite` returns an array of `AnalyticsMetric`.
+   - **Reason**: These are collection or object-bodied endpoints, and the generated types must match what is sent and received.
+
+7a. **Known limitation: other list operations that return one object**
+   - **Original**: `GET` segments is declared to return a single object, not a collection.
+   - **Updated**: Left as declared; the generated method returns the declared record.
    - **Reason**: The correct response shape is not established by the specification, so no schema was invented.
 
 8. **Known difference from the api-specs copy**

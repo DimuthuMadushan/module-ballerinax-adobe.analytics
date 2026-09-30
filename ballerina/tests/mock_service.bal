@@ -69,8 +69,8 @@ service / on ep0 {
     # + sortDirection - Sort direction (ASC or DESC
     # + sortProperty - Property to sort by (name, modified_date, id is currently allowed)
     # + return - successful operation 
-    resource function get [string globalCompanyId]/annotations(("name"|"description"|"dateRange"|"color"|"applyToAllReports"|"scope"|"createdDate"|"modifiedDate"|"modifiedById"|"owner"|"companyId"|"rsid"|"approved"|"favorite"|"shares"|"sharesFullName"|"tags"|"usageSummary"|"usageSummaryWithRelevancyScore"|"ownerFullName"|"reportSuiteName")[]? expansion, ("all"|"shared")[]? includeType, string? filterByIds, string? filterByModifiedAfter, string? filterByDateRange, int? sortDirection, string locale = "en_US", int 'limit = 10, int page = 0, string sortProperty = "id") returns AnalyticsAnnotation {
-        return {id: "a1b2c3", name: "Spring Campaign Launch", description: "Marketing campaign kicked off across all channels", rsid: "examplersid", color: "STANDARD3", dateRange: "2026-03-01T00:00:00/2026-03-31T23:59:59", applyToAllReports: false, approved: true, favorite: false, companyId: 12345, owner: {id: 1001, name: "Jane Doe", login: "jane.doe@example.com"}, createdDate: "2026-02-20T10:15:00Z", modifiedDate: "2026-02-21T08:30:00Z", reportSuiteName: "Example Site"};
+    resource function get [string globalCompanyId]/annotations(("name"|"description"|"dateRange"|"color"|"applyToAllReports"|"scope"|"createdDate"|"modifiedDate"|"modifiedById"|"owner"|"companyId"|"rsid"|"approved"|"favorite"|"shares"|"sharesFullName"|"tags"|"usageSummary"|"usageSummaryWithRelevancyScore"|"ownerFullName"|"reportSuiteName")[]? expansion, ("all"|"shared")[]? includeType, string? filterByIds, string? filterByModifiedAfter, string? filterByDateRange, int? sortDirection, string locale = "en_US", int 'limit = 10, int page = 0, string sortProperty = "id") returns ResponsePageAnalyticsAnnotation {
+        return {content: [{id: "a1b2c3", name: "Spring Campaign Launch", description: "Marketing campaign kicked off across all channels", rsid: "examplersid", color: "STANDARD3", dateRange: "2026-03-01T00:00:00/2026-03-31T23:59:59", applyToAllReports: false, approved: true, favorite: false, companyId: 12345, owner: {id: 1001, name: "Jane Doe", login: "jane.doe@example.com"}, createdDate: "2026-02-20T10:15:00Z", modifiedDate: "2026-02-21T08:30:00Z", reportSuiteName: "Example Site"}], totalElements: 1, numberOfElements: 1, totalPages: 1, size: 10, number: 0, firstPage: true, lastPage: true};
     }
 
     # Get existing annotation
@@ -139,8 +139,8 @@ service / on ep0 {
     # + 'limit - Number of results per page
     # + page - Page number (base 0 - first page is "0")
     # + return - successful operation 
-    resource function get [string globalCompanyId]/dateranges(("all"|"shared"|"templates"|"curatedItem")[]? includeType, ("definition"|"ownerFullName"|"modified"|"approved"|"favorite"|"shares"|"tags"|"sharesFullName"|"usageSummary"|"usageSummaryWithRelevancyScore")[]? expansion, string? filterByIds, string? filterByModifiedAfter, string? curatedRsid, string locale = "en_US", boolean newDefinition = false, int 'limit = 10, int page = 0) returns ExpandedDateRange {
-        return {id: "dr_4001", name: "Last 30 Days", description: "Rolling 30 day window", template: false, approved: true, favorite: false, companyId: 12345, createDate: "2026-01-02T00:00:00Z", modified: "2026-01-03T00:00:00Z"};
+    resource function get [string globalCompanyId]/dateranges(("all"|"shared"|"templates"|"curatedItem")[]? includeType, ("definition"|"ownerFullName"|"modified"|"approved"|"favorite"|"shares"|"tags"|"sharesFullName"|"usageSummary"|"usageSummaryWithRelevancyScore")[]? expansion, string? filterByIds, string? filterByModifiedAfter, string? curatedRsid, string locale = "en_US", boolean newDefinition = false, int 'limit = 10, int page = 0) returns ResponsePageExpandedDateRange {
+        return {content: [{id: "dr_4001", name: "Last 30 Days", description: "Rolling 30 day window", template: false, approved: true, favorite: false, companyId: 12345, createDate: "2026-01-02T00:00:00Z", modified: "2026-01-03T00:00:00Z"}], totalElements: 1, numberOfElements: 1, totalPages: 1, size: 10, number: 0, firstPage: true, lastPage: true};
     }
 
     # Retrieve dimensions for a report suite
@@ -173,8 +173,8 @@ service / on ep0 {
     # http:BadRequest (Invalid JSON input)
     # http:Forbidden (Insufficient access to perform operation)
     # http:InternalServerError (Unexpected internal server error)
-    resource function get [string globalCompanyId]/metrics(string rsid, ("tags"|"allowedForReporting"|"categories")[]? expansion, string locale = "en_US", boolean segmentable = false) returns AnalyticsMetric|http:BadRequest|http:Forbidden|http:InternalServerError {
-        return {id: "metrics/visits", name: "Visits", title: "Visits", 'type: "INT", category: "Traffic", segmentable: true, allowedForReporting: true, calculated: false, polarity: "positive", description: "Number of visits"};
+    resource function get [string globalCompanyId]/metrics(string rsid, ("tags"|"allowedForReporting"|"categories")[]? expansion, string locale = "en_US", boolean segmentable = false) returns AnalyticsMetric[]|http:BadRequest|http:Forbidden|http:InternalServerError {
+        return [{id: "metrics/visits", name: "Visits", title: "Visits", 'type: "INT", category: "Traffic", segmentable: true, allowedForReporting: true, calculated: false, polarity: "positive", description: "Number of visits"}];
     }
 
     # Retrieve user's projects

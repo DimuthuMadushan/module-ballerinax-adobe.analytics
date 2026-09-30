@@ -41,8 +41,10 @@ function jsonRequest(json body) returns http:Request {
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testListAnnotations() returns error? {
-    AnalyticsAnnotation response = check adobeClient->listAnnotations(companyId);
-    test:assertTrue(response?.id is string);
+    ResponsePageAnalyticsAnnotation response = check adobeClient->listAnnotations(companyId);
+    AnalyticsAnnotation[] annotations = response.content ?: [];
+    test:assertTrue(annotations.length() > 0);
+    test:assertTrue(annotations[0]?.id is string);
 }
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
@@ -170,8 +172,8 @@ function testGetDimensionsForReportSuite() returns error? {
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testGetMetricsForReportSuite() returns error? {
-    AnalyticsMetric response = check adobeClient->getMetricsForReportSuite(companyId, rsid = reportSuiteId);
-    test:assertTrue(response?.id is string);
+    AnalyticsMetric[] response = check adobeClient->getMetricsForReportSuite(companyId, rsid = reportSuiteId);
+    test:assertTrue(response.length() > 0);
 }
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
@@ -214,8 +216,12 @@ function testListAllUsersForCompany() returns error? {
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testGetDateRangesForUser() returns error? {
-    ExpandedDateRange response = check adobeClient->getDateRangesForUser(companyId);
-    test:assertTrue(response?.id is string);
+    ResponsePageExpandedDateRange response = check adobeClient->getDateRangesForUser(companyId);
+    ExpandedDateRange[] dateRanges = response.content ?: [];
+    test:assertTrue(dateRanges.length() > 0);
+    test:assertTrue(dateRanges[0]?.id is string);
+    test:assertEquals(response?.totalElements, 1);
+    test:assertEquals(response?.firstPage, true);
 }
 
 @test:Config {groups: ["live_tests", "mock_tests"]}

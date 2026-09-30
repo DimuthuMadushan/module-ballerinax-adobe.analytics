@@ -141,7 +141,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AnalyticsAnnotation"
+                  "$ref" : "#/components/schemas/ResponsePageAnalyticsAnnotation"
                 }
               }
             }
@@ -2256,7 +2256,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/ExpandedDateRange"
+                  "$ref" : "#/components/schemas/ResponsePageExpandedDateRange"
                 }
               }
             }
@@ -2556,7 +2556,10 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/AnalyticsMetric"
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/AnalyticsMetric"
+                  }
                 }
               }
             }
@@ -2937,8 +2940,8 @@
           "description" : "return paginated results",
           "schema" : {
             "type" : "string",
-            "default" : "false",
-            "enum" : [ "true", "false" ]
+            "enum" : [ "true", "false" ],
+            "default" : "false"
           }
         }, {
           "name" : "ownerId",
@@ -3369,8 +3372,8 @@
           "description" : "Filter list to only include segments where the published field is set to one of the allowable values (all, true, false).",
           "schema" : {
             "type" : "string",
-            "default" : "all",
-            "enum" : [ "all", "true", "false" ]
+            "enum" : [ "all", "true", "false" ],
+            "default" : "all"
           }
         }, {
           "name" : "limit",
@@ -3559,7 +3562,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "type" : "string"
+                "$ref" : "#/components/schemas/AnalyticsSegmentDefinition"
               }
             }
           },
@@ -5921,6 +5924,88 @@
             "type" : "string"
           }
         }
+      },
+      "ResponsePageAnalyticsAnnotation" : {
+        "type" : "object",
+        "properties" : {
+          "content" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/AnalyticsAnnotation"
+            }
+          },
+          "totalElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "lastPage" : {
+            "type" : "boolean"
+          },
+          "numberOfElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "totalPages" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "firstPage" : {
+            "type" : "boolean"
+          },
+          "sort" : {
+            "type" : "string"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "number" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "description" : "A page of annotations"
+      },
+      "ResponsePageExpandedDateRange" : {
+        "type" : "object",
+        "properties" : {
+          "content" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ExpandedDateRange"
+            }
+          },
+          "totalElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "lastPage" : {
+            "type" : "boolean"
+          },
+          "numberOfElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "totalPages" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "firstPage" : {
+            "type" : "boolean"
+          },
+          "sort" : {
+            "type" : "string"
+          },
+          "size" : {
+            "type" : "integer",
+            "format" : "int32"
+          },
+          "number" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "description" : "A page of date ranges"
       },
       "AnalyticsSegmentDefinitionContainerPredVal" : {
         "type" : "object",

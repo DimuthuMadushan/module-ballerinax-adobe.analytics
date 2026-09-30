@@ -631,6 +631,19 @@ public type AnalyticsAnnotation record {
     boolean applyToAllReports?;
 };
 
+# A page of annotations
+public type ResponsePageAnalyticsAnnotation record {
+    int:Signed32 number?;
+    boolean lastPage?;
+    int numberOfElements?;
+    boolean firstPage?;
+    int:Signed32 size?;
+    int:Signed32 totalPages?;
+    string sort?;
+    AnalyticsAnnotation[] content?;
+    int totalElements?;
+};
+
 # Represents the Queries record for the operation: deleteDateRange
 public type DeleteDateRangeQueries record {
     # Locale
@@ -1048,6 +1061,19 @@ public type GetTagListByComponentIdAndComponentTypeQueries record {
     "segment"|"dashboard"|"bookmark"|"calculatedMetric"|"project"|"dateRange"|"metric"|"dimension"|"virtualReportSuite"|"scheduledJob"|"alert"|"classificationSet" componentType;
     # The componentId to operate on. Currently this is just the segmentId
     string componentId;
+};
+
+# A page of date ranges
+public type ResponsePageExpandedDateRange record {
+    int:Signed32 number?;
+    boolean lastPage?;
+    int numberOfElements?;
+    boolean firstPage?;
+    int:Signed32 size?;
+    int:Signed32 totalPages?;
+    string sort?;
+    ExpandedDateRange[] content?;
+    int totalElements?;
 };
 
 public type RankedColumnMetaData record {
